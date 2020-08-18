@@ -1,0 +1,89 @@
+include<iostream>
+
+using namespace std;
+
+struct node
+{
+        int data;
+        node* next;
+};
+
+struct node* head;
+
+void insert(int x)
+{
+        node* temp=new node();
+        node* ptr=new node();
+        ptr=head;
+        temp->data=x;
+        temp->next=NULL;
+        while(ptr->next !=NULL)
+        {
+                ptr=ptr->next;
+        }
+        ptr->next=temp;
+}
+
+void insert_at_mid(int p,int a)
+{
+	node* bnew=new node();
+	node* temp;
+	
+	if(head==NULL)
+	{
+		node* head=new node();
+		head->data=a;
+		head->next=NULL;
+		return;
+	}
+	else 
+		bnew->data=a;
+		temp=head;
+		while(temp->data!=p)
+		{	
+			temp=temp->next;
+		}
+		bnew->next=temp->next;
+		temp->next=bnew;
+}
+
+void display(node* temp)
+{
+        temp=head;
+        while(temp->next!=NULL)
+        {
+                cout<<temp->data<<"->";
+                temp=temp->next;
+        }
+        cout<<temp->data;
+}
+
+int main()
+{
+        int x,n,i,p,a;
+	head=new node();
+        cout<<"enter number of elements:";
+        cin>>n;
+	if(n==0)
+		goto at_mid;
+        cout<<"enter value of first element:";
+        cin>>x;
+        head->data=x;
+        head->next=NULL;
+        for(i=0;i<n-1;i++)
+        {
+                cout<<"enter value of next element:";
+                cin>>x;
+                insert(x);
+        }
+        display(head);
+	cout<<"enter element after you want to insert";
+	cin>>p;
+	at_mid:
+	cout<<"enter value of new element";
+	cin>>a;
+	insert_at_mid(p,a);
+	display(head);
+        return 0;
+}
+
