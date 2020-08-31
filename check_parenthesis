@@ -1,0 +1,65 @@
+#include<iostream>
+#include<string>
+#include<stack>
+
+using namespace std;
+
+bool check(string exp)
+{
+	stack<char> s;
+	char x;
+	int i;
+
+	for(i=0;i<exp.length();i++)
+	{
+		if(exp[i]=='(' || exp[i]=='{' || exp[i]=='[')
+		{
+			s.push(exp[i]);
+			continue;
+		}
+
+		if(s.empty())
+			return false;
+
+		switch(exp[i])
+		{
+			case')':
+				x=s.top();
+				s.pop();
+					if(x=='{' || x=='[')
+						return false;
+			break;
+
+			case'}':
+				x=s.top();
+				s.pop();
+					if(x=='(' || x=='[')
+						return false;
+			break;
+
+			case']':
+				x=s.top();
+				s.pop();
+					if(x=='(' || x=='{')
+						return false;
+			break;
+		}
+	}
+
+	return(s.empty());
+}
+
+int main()
+{
+	string exp;
+
+	cout<<"enter the expression:";
+	getline(cin,exp);
+
+	if(check(exp))
+		cout<<"balanced"<<endl;
+	else
+		cout<<"unbalanced"<<endl;
+
+	return 0;
+}
