@@ -1,0 +1,45 @@
+#include<iostream>
+using namespace std;
+
+struct node{
+        int data;
+        node *next;
+};
+
+node *createnode(int info){
+        node *temp=new node();
+        temp->data=info;
+        temp->next=NULL;
+        return temp;
+}
+
+void detectloop(node *head){
+        node *temp=new node();
+        temp=head;
+        node *ptr=head;
+        while(head!=NULL){
+                if(head->next==temp){
+                        cout<<"loop found";
+                        return ;
+                }
+                ptr=head->next;
+                head->next=temp;
+                head=ptr;
+        }
+        cout<<"loop not found";
+        return;
+}
+
+int main(){
+        node* head=createnode(11);
+        head->next=createnode(22);
+        head->next->next=createnode(33);
+        head->next->next->next=createnode(44);
+        head->next->next->next->next=createnode(55);
+
+        head->next->next->next->next->next=head->next;
+
+        detectloop(head);
+        return 0;
+}
+
